@@ -1,7 +1,9 @@
+import UserProfile from "./userProfile/page";
+
 export default function Home() {
   return (
     <div>
-      <h2>Haloo</h2>
+      <UserProfile />
     </div>
   );
 }

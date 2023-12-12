@@ -1,0 +1,29 @@
+{
+  "protocol": "https://jobster.com/profile",
+  "published": true,
+  "types": {
+    "user": {
+      "schema": "https://schema.org/Person",
+      "dataFormats": ["application/json"]
+    }
+  },
+  "structure": {
+    "user": {
+      "$actions": [
+        {
+          "who": "anyone",
+          "can": "create"
+        },
+        {
+          "who": "anyone",
+          "can": "read"
+        },
+        {
+          "who": "author",
+          "of": "user",
+          "can": "update"
+        }
+      ]
+    }
+  }
+}
