@@ -2,9 +2,12 @@ import React from "react";
 
 const getJobs = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/jobs", {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      "https://eazy-jobs-mnev3u5e9-isongs-projects.vercel.app/api/jobs",
+      {
+        cache: "no-store",
+      }
+    );
     if (!res.ok) {
       throw new Error("Failed to fetch jobs");
     }
