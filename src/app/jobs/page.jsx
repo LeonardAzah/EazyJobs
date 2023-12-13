@@ -25,11 +25,8 @@ const Jobs = async () => {
       </div>
       <div className="grid grid-cols-2 gap-4">
         {jobs.map((job) => (
-          <div>
-            <div
-              className="border border border-blue-300 p-8 rounded-2xl bg-white w-[600px]"
-              key={job._id}
-            >
+          <div key={job._id}>
+            <div className="border border border-blue-300 p-8 rounded-2xl bg-white w-[600px]">
               <p className="mb-3 font-poppins text-base font-bold leading-[150%]">
                 {job.position}
               </p>
