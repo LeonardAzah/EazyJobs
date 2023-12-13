@@ -810,8 +810,8 @@ const UserProfile = () => {
               >
                 <option value="high-school">High School / ged</option>
                 <option value="associate">Associate Degree</option>
-                <option value="bachelor">Bachelor Degree</option>
-                <option value="master">Master Degree</option>
+                {/* <option value="bachelor">Bachelor Degree</option> */}
+                {/* <option value="master">Master Degree</option> */}
                 <option value="doctoral">Doctoral Degree</option>
                 <option value="bootcamp">Bootcamp</option>
               </select>
