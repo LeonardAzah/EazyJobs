@@ -1,8 +1,9 @@
 import React from "react";
+const URL = "https://eazy-jobs-f201sffk8-isongs-projects.vercel.app/";
 
 const getJobs = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/jobs", {
+    const res = await fetch(`${URL}/api/jobs`, {
       cache: "no-store",
     });
     if (!res.ok) {
