@@ -24,7 +24,6 @@ const UserProfile = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [profile, setProfile] = useState(null);
   const [phone, setPhone] = useState("");
   const [role, setRole] = useState("");
   const [country, setCountry] = useState("");
@@ -78,7 +77,7 @@ const UserProfile = () => {
       const data = await record.data.json();
       const career = { record, data, id: record.id };
       setCareers([...careers, career]);
-      console.log(career);
+      console.log(careers);
     }
   };
 
@@ -120,6 +119,7 @@ const UserProfile = () => {
         published: true,
       },
     });
+
     const { status } = await record.send(did);
     console.log(status);
   };
@@ -170,6 +170,7 @@ const UserProfile = () => {
     const data = await record.data.json();
     const career = { record, data, id: record.id };
     setCareers([...careers, career]);
+    console.log(career);
 
     const { status } = await record.send(did);
 
@@ -185,11 +186,20 @@ const UserProfile = () => {
         },
       },
     });
-
     for (let record of records) {
       const data = await record.data.json();
       const profile = { record, data, id: record.id };
-      setProfile(profile.data);
+      setFirstName(profile.data.firstName);
+      setLastName(profile.data.lastName);
+      setAbountMe(profile.data.aboutMe);
+      setCountry(profile.data.country);
+      setCountryCode(profile.data.countryCode);
+      setCity(profile.data.city);
+      setGithub(profile.data.github);
+      setLinkedIn(profile.data.linkedIn);
+      setEmail(profile.data.email);
+      setPhone(profile.data.phone);
+      setRole(profile.data.role);
     }
   };
 
@@ -297,8 +307,8 @@ const UserProfile = () => {
   };
 
   return (
-    <>
-      <div className="flex p-14 flex-col">
+    <div className="flex flex-wrap justify-start items-center gap-2 m-auto p-8 ">
+      {/* <div className="flex p-14 flex-col">
         <div className="bg-white p-4 rounded w-full relative lg:w-[624px]">
           <div className="flex justify-between items-start align-top ">
             <div>
@@ -472,6 +482,347 @@ const UserProfile = () => {
             </div>
           </div>
         </div>
+      </div> */}
+      <div>
+        <div
+          className="bg-white m-auto p-4 max-w-1/2 rounded-xl flex-1"
+          style={{
+            boxShadow:
+              "0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          <div>
+            <p className="font-poppins text-xl font-bold text-center pb-4">
+              Profile
+            </p>
+            <div className="flex justify-around items-center gap-4 pb-2">
+              <Link target="_blank" href={`${github}`}>
+                {" "}
+                <FaGithub />
+              </Link>
+              <Link target="_blank" href={`${linkedIn}`}>
+                {" "}
+                <FaLinkedin />
+              </Link>
+              <button onClick={() => setShowModal(true)}>
+                {" "}
+                <FaEdit />
+              </button>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label
+                for="firstName"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                First Name
+              </label>
+              <input
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-500 block w-full p-2.5"
+                type="text"
+                value={firstName}
+                readonly
+              />
+            </div>
+
+            <div>
+              <label
+                for="lastName"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Last Name
+              </label>
+              <input
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-500 block w-full p-2.5"
+                type="text"
+                value={lastName}
+                readonly
+              />
+            </div>
+            <div>
+              <label
+                for="email"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Email
+              </label>
+              <input
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-500 block w-full p-2.5"
+                type="email"
+                value={email}
+                readonly
+              />
+            </div>
+
+            <div>
+              <label
+                for="role"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Prefered role/position
+              </label>
+              <input
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-500 block w-full p-2.5"
+                type="text"
+                value={role}
+                readonly
+              />
+            </div>
+
+            <div>
+              <label
+                for="countryCode"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Country code
+              </label>
+              <input
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-500 block w-full p-2.5"
+                type="text"
+                value={countryCode}
+                readonly
+              />
+            </div>
+            <div>
+              <label
+                for="phone"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Phone
+              </label>
+              <input
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-500 block w-full p-2.5"
+                type="text"
+                value={phone}
+                readonly
+              />
+            </div>
+            <div>
+              <label
+                for="country"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Country
+              </label>
+              <input
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-500 block w-full p-2.5"
+                type="text"
+                value={country}
+                readonly
+              />
+            </div>
+            <div>
+              <label
+                for="city"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                City
+              </label>
+              <input
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-500 block w-full p-2.5"
+                type="text"
+                value={city}
+                readonly
+              />
+            </div>
+            <div>
+              <label
+                for="aboutMe"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                About me
+              </label>
+              <textarea
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-500 block w-full p-2.5"
+                type="text"
+                value={aboutMe}
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="bg-white m-auto p-4 rounded-xl max-w-1/2 flex-1"
+        style={{
+          boxShadow:
+            "0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <div className="relative max-md:w-full max-md:mx-auto">
+          <div className=" flex justify-between lg:min-w-[550px] w-full max-md:min-w-full p-4">
+            <p className="font-poppins text-xl font-bold">Career</p>
+            <div className="flex gap-x-5">
+              <button
+                className="cursor-pointer  flex w-fit p-2 bg-gray-100 rounded "
+                onClick={() => setCareerModal(true)}
+              >
+                <IoAddCircleOutline width={32} height={32} />
+              </button>
+              <button
+                onClick={handleButtonClick}
+                className="cursor-pointer  flex w-fit p-2 bg-gray-100 rounded"
+              >
+                <FaRegEdit width={32} height={32} />
+              </button>
+            </div>
+          </div>
+          {/* {careers.map((career) => ( */}
+          <div
+            className="bg-white max-md:w-full w-full"
+            // key={career.id}
+          >
+            <div className="flex items-start mb-2">
+              <div className="group flex gap-x-5 max-md:w-full">
+                <div className="flex flex-col gap-y-5 items-center ">
+                  <BsBackpack4Fill
+                    width={32}
+                    height={32}
+                    className="w-[52px] h-[52px] min-h-[52px] min-w-[52px] bg-odf rounded-full flex justify-center items-center "
+                  />
+                </div>
+                <div className="max-md:w-full">
+                  <div className="flex gap-4 justify-between lg:min-w-[550px] w-full max-md:min-w-[270px]">
+                    <p className="mb-2 font-poppins text-base font-bold leading-[150%]">
+                      Software Engineer
+                      {/* {career.data.position} */}
+                    </p>
+                    <div
+                      className={`flex gap-x-5 ${
+                        showButton ? "visible" : "hidden"
+                      } `}
+                    >
+                      <button className="cursor-pointer  flex w-fit p-2 bg-[#FaFaFa] rounded ">
+                        <FaRegEdit width={32} height={32} />
+                      </button>
+                      <button className="cursor-pointer  flex w-fit p-2 bg-[#FaFaFa] rounded">
+                        <MdDelete
+                          width={32}
+                          height={32}
+                          // onClick={deleteCareer(career)}
+                        />
+                      </button>
+                    </div>
+                  </div>
+                  <p className="mt-1 font-inter font-semibold">
+                    Fapshi,inc
+                    {/* {career.data.companyName} */}
+                  </p>
+                  <div className="mt-3 flex gap-x-2">
+                    <span className="bg-odf-light text-odf rounded-lg flex items-center justify-center font-inter text-xs w-fit gap-[1px] p-2 h-[38px] font-semibold">
+                      {/* {career.data.term} */}
+                      Internship
+                    </span>
+                    <span className="bg-odf-light text-odf rounded-lg flex items-center justify-center font-inter text-xs w-fit gap-[1px] p-2 h-[38px] font-semibold">
+                      {/* {career.data.startDate} - {career.data.endDate} */}
+                      01/07/2022 - 28/02/2023
+                    </span>
+                  </div>
+                  <div className="my-5  pl-5">
+                    {/* {career.data.activities} */}
+                    Spearheaded the development of a dynamic admin dashboard
+                    using ReactJS and Axios, pioneering a custom Axios hook to
+                    streamline data retrieval from APIs.  Orchestrated the
+                    management of the application's global state through the
+                    Context API, enhancing control flow and overall user
+                    experience.  Designed visually appealing interfaces with
+                    MUI and JavaScript to enhance accessibility and
+                    responsiveness.  Developed RESTful APIs utilizing Node.js,
+                    facilitating efficient data communication between the
+                    front-end and back-end system
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* ))} */}
+        </div>
+      </div>
+      <div
+        className="bg-white m-auto p-4 rounded-xl flex-1 max-w-1/2"
+        style={{
+          boxShadow:
+            "0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <div className="relative w-[624px] max-md:w-full max-md:mx-auto">
+          <div className="flex justify-between md:min-w-[550px] w-full max-md:min-w-[270px]  mt-4">
+            <p className="font-poppins text-xl font-bold">Education</p>
+            <div className="flex gap-x-5">
+              <button
+                className="cursor-pointer  flex w-fit p-2 bg-[#F4F4F4] rounded"
+                onClick={() => setEdModal(true)}
+              >
+                <IoAddCircleOutline width={24} height={24} />
+              </button>
+              <button
+                className="cursor-pointer flex w-fit p-2 rounded bg-[#F4F4F4]"
+                onClick={handleEdButtonClick}
+              >
+                <FaRegEdit width={24} height={24} />
+              </button>
+            </div>
+          </div>
+          <div className=" bg-white max-md:items-center w-full">
+            <div className="flex items-start mb-10 max-md:w-full">
+              <div className="group flex gap-x-5 max-md:w-full">
+                <div className="flex flex-col gap-y-5 items-center">
+                  <span className="w-[52px] h-[52px] min-h-[52px] min-w-[52px] bg-odf rounded-full flex justify-center items-center">
+                    <MdCastForEducation height={32} width={32} />
+                  </span>
+                </div>
+
+                {/* {educations.map((ed) => ( */}
+                <div
+                  className="flex justify-between md:min-w-[550px] w-full max-md:min-w-[270px]"
+                  // key={ed.id}
+                >
+                  <div className="max-md:w-full">
+                    <div className="flex gap-4 justify-between md:min-w-[550px] w-full max-md:min-w-[270px]">
+                      <p className="mb-2 font-poppins text-base font-bold leading-[150%]">
+                        {/* {ed.data.institution} */}
+                        University of Buea
+                      </p>
+                      <div
+                        className={`flex gap-x-5 ${
+                          showButtonEd ? "visible" : "hidden"
+                        } `}
+                      >
+                        <button className="cursor-pointer  flex w-fit p-2 bg-[#FaFaFa] rounded ">
+                          <FaRegEdit width={32} height={32} />
+                        </button>
+                        <button className="cursor-pointer  flex w-fit p-2 bg-[#FaFaFa] rounded">
+                          <MdDelete
+                            width={32}
+                            height={32}
+                            // onClick={deleteCareer(career)}
+                          />
+                        </button>
+                      </div>
+                    </div>
+                    <p className="mb-3 font-inter text-base font-semibold leading-[150%]">
+                      {/* {ed.data.field} */}
+                      Software Engineer
+                    </p>
+
+                    <div className="flex gap-4 mb-5">
+                      <span className="bg-odf-light text-odf rounded-lg flex items-center justify-center font-inter text-xs w-fit gap-[1px] p-2 w-fit h-[40px] px-2 text-sm font-semibold ">
+                        {/* {ed.data.degree} */}
+                        Bachelor
+                      </span>
+                      <span className="bg-odf-light text-odf rounded-lg flex items-center justify-center font-inter text-xs w-fit gap-[1px] p-2 w-fit h-[40px] px-4 font-semibold">
+                        {/* {ed.data.edStartDate} - {ed.data.edEndDate} */}
+                        07/10/2019 - 21/12/2023
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                {/* ))} */}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div>
@@ -491,6 +842,7 @@ const UserProfile = () => {
                 <input
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-500 block w-full p-2.5"
                   type="text"
+                  name="firstName"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   required
@@ -509,6 +861,7 @@ const UserProfile = () => {
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
+                  required
                 />
               </div>
               <div>
@@ -523,6 +876,7 @@ const UserProfile = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
 
@@ -538,6 +892,7 @@ const UserProfile = () => {
                   type="text"
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
+                  required
                 />
               </div>
 
@@ -553,6 +908,7 @@ const UserProfile = () => {
                   type="text"
                   value={countryCode}
                   onChange={(e) => setCountryCode(e.target.value)}
+                  required
                 />
               </div>
               <div>
@@ -567,6 +923,7 @@ const UserProfile = () => {
                   type="text"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
+                  required
                 />
               </div>
               <div>
@@ -581,6 +938,7 @@ const UserProfile = () => {
                   type="text"
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
+                  required
                 />
               </div>
               <div>
@@ -595,6 +953,7 @@ const UserProfile = () => {
                   type="text"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
+                  required
                 />
               </div>
               <div>
@@ -609,6 +968,7 @@ const UserProfile = () => {
                   type="text"
                   value={aboutMe}
                   onChange={(e) => setAbountMe(e.target.value)}
+                  required
                 />
               </div>
               <div>
@@ -623,6 +983,7 @@ const UserProfile = () => {
                   type="url"
                   value={github}
                   onChange={(e) => setGithub(e.target.value)}
+                  required
                 />
               </div>
               <div>
@@ -637,6 +998,7 @@ const UserProfile = () => {
                   type="url"
                   value={linkedIn}
                   onChange={(e) => setLinkedIn(e.target.value)}
+                  required
                 />
               </div>
 
@@ -856,7 +1218,7 @@ const UserProfile = () => {
           </form>
         </ProfileModal>
       </div>
-    </>
+    </div>
   );
 };
 
